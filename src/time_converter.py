@@ -9,36 +9,36 @@ class _TimeProperty:
             self.__Day   = self.__Hour * 24
             self.__Week  = self.__Day * 7
          
-        def __Seconds(self, quantity: float)-> float:
-            return float(self.__Second * quantity) 
+        def __Seconds(self, quantity_of_seconds: float)-> float:
+            return float(self.__Second * quantity_of_seconds) 
 
         @property
         def Seconds(self):
             return self.__Seconds
         
-        def __Minutes(self, quantity: float)-> float:
-            return float(self.__Minute * quantity)
+        def __Minutes(self, quantity_of_minutes: float)-> float:
+            return float(self.__Minute * quantity_of_minutes)
 
         @property
         def Minutes(self):
             return self.__Minutes
         
-        def __Hours(self, quantity: float)-> float:
-            return float(self.__Hour * quantity)
+        def __Hours(self, quantity_of_hours: float)-> float:
+            return float(self.__Hour * quantity_of_hours)
 
         @property
         def Hours(self):
             return self.__Hours
         
-        def __Days(self, quantity: float)-> float:
-            return float(self.__Day * quantity)
+        def __Days(self, quantity_of_days: float)-> float:
+            return float(self.__Day * quantity_of_days)
 
         @property
         def Days(self):
             return self.__Days
         
-        def __Weeks(self, quantity: float)-> float:
-            return float(self.__Week * quantity)
+        def __Weeks(self, quantity_of_weeks: float)-> float:
+            return float(self.__Week * quantity_of_weeks)
 
         @property
         def Weeks(self):

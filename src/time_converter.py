@@ -8,7 +8,31 @@ class _TimeProperty:
             self.__Hour  = self.__Minute * 60 
             self.__Day   = self.__Hour * 24
             self.__Week  = self.__Day * 7
+            self.__Millisecond= self.__Second / 1000
+            self.__Microsecond= self.__Millisecond / 1000
+            self.__Nanosecond = self.__Microsecond / 1000
          
+        def __Nanoseconds(self, quantity_of_seconds: float)-> float:
+            return float(self.__Nanosecond * quantity_of_seconds) 
+
+        @property
+        def Nanoseconds(self):
+            return self.__Nanoseconds
+       
+        def __Milliseconds(self, quantity_of_seconds: float)-> float:
+            return float(self.__Millisecond * quantity_of_seconds) 
+
+        @property
+        def Milliseconds(self):
+            return self.__Milliseconds
+        
+        def __Microseconds(self, quantity_of_seconds: float)-> float:
+            return float(self.__Microsecond * quantity_of_seconds) 
+
+        @property
+        def Microseconds(self):
+            return self.__Microseconds
+
         def __Seconds(self, quantity_of_seconds: float)-> float:
             return float(self.__Second * quantity_of_seconds) 
 
@@ -49,7 +73,12 @@ class _TimeProperty:
     def __init__(self, seconds_in_property):
         self.In= _TimeProperty.__In(seconds_in_property)
 
-Seconds= _TimeProperty(1)
+Seconds= _TimeProperty(Fraction(1))
+
+Milliseconds= _TimeProperty(Fraction(10**3))
+Microseconds= _TimeProperty(Fraction(10**6))
+Nanoseconds = _TimeProperty(Fraction(10**9))
+
 Minutes= _TimeProperty(Fraction(1, int(Seconds.In.Minutes(1))))
 Hours  = _TimeProperty(Fraction(1, int(Seconds.In.Hours(1))))
 Days   = _TimeProperty(Fraction(1, int(Seconds.In.Days(1))))

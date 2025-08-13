@@ -1,4 +1,12 @@
 from fractions import Fraction
+from typing import Callable
+
+def readonly(
+    func: Callable
+):
+    def wrapper(self, *args):
+        return lambda *args: func(self, *args)
+    return property(wrapper)
 
 class _TimeProperty:
     class __In:
@@ -12,61 +20,62 @@ class _TimeProperty:
             self.__Microsecond= self.__Millisecond / 1000
             self.__Nanosecond = self.__Microsecond / 1000
          
-        def __Nanoseconds(self, quantity_of_seconds: float)-> float:
-            return float(self.__Nanosecond * quantity_of_seconds) 
 
-        @property
-        def Nanoseconds(self):
-            return self.__Nanoseconds
-       
-        def __Milliseconds(self, quantity_of_seconds: float)-> float:
-            return float(self.__Millisecond * quantity_of_seconds) 
-
-        @property
-        def Milliseconds(self):
-            return self.__Milliseconds
+        @readonly
+        def Nanoseconds(
+            self, 
+            quantity_of_nanoseconds: float
+        )-> float:
+            return float(self.__Nanosecond * quantity_of_nanoseconds) 
         
-        def __Microseconds(self, quantity_of_seconds: float)-> float:
-            return float(self.__Microsecond * quantity_of_seconds) 
+        @readonly
+        def Microseconds(
+            self,
+            quantity_of_microseconds: float
+        ):
+            return float(self.__Microsecond * quantity_of_microseconds) 
 
-        @property
-        def Microseconds(self):
-            return self.__Microseconds
-
-        def __Seconds(self, quantity_of_seconds: float)-> float:
+        @readonly
+        def Milliseconds(
+            self,
+            quantity_of_milliseconds: float
+        )-> float:
+            return float(self.__Millisecond * quantity_of_milliseconds) 
+        
+        @readonly
+        def Seconds(
+            self,
+            quantity_of_seconds: float
+        )-> float:
             return float(self.__Second * quantity_of_seconds) 
-
-        @property
-        def Seconds(self):
-            return self.__Seconds
         
-        def __Minutes(self, quantity_of_minutes: float)-> float:
+        @readonly
+        def Minutes(
+            self,
+            quantity_of_minutes: float
+        ):
             return float(self.__Minute * quantity_of_minutes)
-
-        @property
-        def Minutes(self):
-            return self.__Minutes
         
-        def __Hours(self, quantity_of_hours: float)-> float:
+        @readonly
+        def Hours(
+            self,
+            quantity_of_hours: float
+        ):
             return float(self.__Hour * quantity_of_hours)
 
-        @property
-        def Hours(self):
-            return self.__Hours
-        
-        def __Days(self, quantity_of_days: float)-> float:
+        @readonly
+        def Days(
+            self,
+            quantity_of_days: float
+        ):
             return float(self.__Day * quantity_of_days)
-
-        @property
-        def Days(self):
-            return self.__Days
         
-        def __Weeks(self, quantity_of_weeks: float)-> float:
+        @readonly
+        def Weeks(
+            self,
+            quantity_of_weeks: float
+        ):
             return float(self.__Week * quantity_of_weeks)
-
-        @property
-        def Weeks(self):
-            return self.__Weeks
         
     
          
@@ -79,8 +88,8 @@ Milliseconds= _TimeProperty(Fraction(10**3))
 Microseconds= _TimeProperty(Fraction(10**6))
 Nanoseconds = _TimeProperty(Fraction(10**9))
 
-Minutes= _TimeProperty(Fraction(1, int(Seconds.In.Minutes(1))))
-Hours  = _TimeProperty(Fraction(1, int(Seconds.In.Hours(1))))
-Days   = _TimeProperty(Fraction(1, int(Seconds.In.Days(1))))
-Weeks  = _TimeProperty(Fraction(1, int(Seconds.In.Weeks(1))))
+Minutes= _TimeProperty(Fraction(1, Fraction(Seconds.In.Minutes(1))))
+Hours  = _TimeProperty(Fraction(1, Fraction(Seconds.In.Hours(1))))
+Days   = _TimeProperty(Fraction(1, Fraction(Seconds.In.Days(1))))
+Weeks  = _TimeProperty(Fraction(1, Fraction(Seconds.In.Weeks(1))))
 
